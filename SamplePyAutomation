@@ -1,0 +1,22 @@
+@Config(url="http://www.amazon.com", browser=Browser.CHROME)
+public class TestFlipKart extends AutomationTest {
+    @Test
+    public void testLoginLogout() {
+        String username = "<username>";
+        String password = "<password>";
+        
+        click(By.cssSelector("a[href*='/login']"))
+        .setText(By.cssSelector("input[name='email']"), username)
+        .setText(By.cssSelector("input[name='password']"), password)
+        .click(By.cssSelector("input[type='submit'][value='Login']"))
+        
+        .validatePresent(By.cssSelector("li.greeting-link > a"))
+        
+        .hoverOver(By.cssSelector("li.greeting-link > a"))
+        
+        .click(By.cssSelector("ul.account-dropdown a[href*='/logout']"))
+        
+        // should be logged out now.
+        .validatePresent(By.cssSelector("a[href*='/login']"));
+    }
+}
